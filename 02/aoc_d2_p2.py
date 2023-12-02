@@ -1,8 +1,9 @@
 # Aoc day 2 p1 solution
 import sys
 
-# determine games only containing 12 red, 13 green, and 14 blue cubes 
+# determine games only containing 12 red, 13 green, and 14 blue cubes
 # game #id: # colour
+
 
 def parseFile(fname):
     lines = []
@@ -10,7 +11,7 @@ def parseFile(fname):
         lines = open(fname).read().strip().split('\n')
     except:
         return -1
-    
+
     total = 0
 
     for line in lines:
@@ -18,12 +19,11 @@ def parseFile(fname):
         data = line.split(":")
         # game id acquired
         gameId = int(data[0].strip("Game").strip())
-        
+
         # check the data
         # each subset is seperated by a ';'
         subsets = data[1].split(';')
 
-        
         colourCounts = {
             "red": 0,
             "green": 0,
@@ -48,9 +48,11 @@ def parseFile(fname):
 
     return total
 
+
 def main():
     result = parseFile(sys.argv[1])
     print("the total is: " + str(result))
+
 
 if __name__ == "__main__":
     main()

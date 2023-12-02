@@ -1,7 +1,10 @@
-## aoc day 1 solution p2
+# aoc day 1 solution p2
 import sys
 
-validNums = ['one', 'two', 'three','four','five','six','seven','eight','nine']
+validNums = [
+        'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'
+        ]
+
 
 def parseFile(fName):
     lines = ''
@@ -13,7 +16,7 @@ def parseFile(fName):
     total = 0
 
     for line in lines.split('\n'):
-        digits = [] ## list of all digits found
+        digits = []  # list of all digits found
 
         for i, char in enumerate(line):
             if char.isdigit():
@@ -21,13 +24,15 @@ def parseFile(fName):
             for index, num in enumerate(validNums):
                 if line[i:].startswith(num):
                     digits.append(str(index+1))
-        total += int(digits[0]) * 10 + int(digits[-1]) ## list[-1] -> access last element of list
-
+        # list[-1] -> access last element of list
+        total += int(digits[0]) * 10 + int(digits[-1])
     return total
+
 
 def main():
     result = parseFile(sys.argv[1])
     print(result)
+
 
 if __name__ == "__main__":
     main()

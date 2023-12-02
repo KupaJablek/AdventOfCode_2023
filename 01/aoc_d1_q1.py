@@ -1,11 +1,12 @@
-## aoc day 1 solution
+# aoc day 1 solution
 import sys
+
 
 def parseFile(fName):
     lines = []
 
     try:
-        lines = open(fName).read().strip()       
+        lines = open(fName).read().strip()
     except:
         return -1
 
@@ -19,12 +20,13 @@ def parseFile(fName):
                 digits.append(character)
 
         total += int(digits[0]) * 10 + int(digits[-1])
-    
     return total
+
 
 def main():
     result = parseFile(sys.argv[1])
     print(result)
+
 
 if __name__ == "__main__":
     main()
