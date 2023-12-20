@@ -57,11 +57,10 @@ for line in data:
         rank = 4
     elif hand[keys[0]] == 2 and hand[keys[1]] == 2:
         rank = 3
-    elif hand[keys[1]] == 2:
+    elif hand[keys[0]] == 2:
         rank = 2
     else:
         rank = 1
-
     hands.append((rank, cards, bet))
 
 # process the data
