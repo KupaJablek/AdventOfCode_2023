@@ -1,10 +1,8 @@
 import sys
 data = open(sys.argv[1]).read().strip().split('\n')
-
 # pipes = ['|', '-', 'L', 'J', '7', 'F']
 # S - start of pipe maze
 # . - empty tile
-
 dl = len(data) - 1
 ll = len(data[0]) - 1
 
@@ -12,8 +10,8 @@ def getStart():
     for l, line in enumerate(data):
         for c, char in enumerate(line):
             if char == "S":
-                return [l, c]
-    return [-1, -1] 
+                return [l, c] 
+    return [-1,-1] 
 
 def isValid(sPipe, nPipe):
     ydiff = sPipe[0] - nPipe[0] 
@@ -86,6 +84,7 @@ c = data[s[0][0]][s[0][1]]
 cpos = s[0] # current position
 ppos = start # previous position
 pcount = 0
+
 while(c != "S"):
     m = move(cpos, ppos)
     ppos = cpos
@@ -93,6 +92,5 @@ while(c != "S"):
     pcount += 1 
 
     c = data[m[0][0]][m[0][1]]
-
 fpos = int(pcount / 2) + pcount % 2
-print(fpos)
+print("Part #1: " + str(fpos))
