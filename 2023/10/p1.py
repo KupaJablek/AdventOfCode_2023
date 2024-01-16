@@ -22,33 +22,30 @@ def isValid(sPipe, nPipe):
     if c == '.':
         return False
 
-    if c == "S":
-        return True
-
     if ydiff > 0:
         if s != "|" and s != "L" and s != "J" and s != "S":
             # pipe can't go up
             return False
-        if c == "7" or c == "|" or c == "F":
+        if c == "7" or c == "|" or c == "F" or c == "S":
             return True
     if ydiff < 0:
         if s != "|" and s != "7" and s != "F" and s != "S":
             # pipe can't go down
             return False
-        if c == "L" or c == "|" or c == "J":
+        if c == "L" or c == "|" or c == "J" or c == "S":
             return True
 
     if xdiff > 0:
         if s != "-" and s != "7" and s != "J" and s != "S":
             # pipe cant go left
             return False
-        if c == "L" or c == "-" or c == "F":
+        if c == "L" or c == "-" or c == "F" or c == "S":
             return True
     if xdiff < 0:
         if s != "-" and s != "F" and s != "L" and s != "S":
             # pipe cant go right
             return False
-        if c == "J" or c == "-" or c == "7":
+        if c == "J" or c == "-" or c == "7" or c == "S":
             return True
     return False
 
