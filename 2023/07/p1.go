@@ -70,7 +70,7 @@ func sortHands(h []Hand) []Hand {
     return h
 }
 
-func main() {
+func day7_p1() {
     args := os.Args
     if len(args) < 2 {
         fmt.Printf("No file arg\n")
