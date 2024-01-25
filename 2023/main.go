@@ -43,7 +43,7 @@ func main() {
             //day7_p1() 
             f1 = "p2.py"
         case "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25":
-        fmt.Println("Day " + day + " solution is not yet implemented")
+            fmt.Println("Day " + day + " solution is not yet implemented")
             return
         default:
             fmt.Println("Day: " + day + " is not valid day [1-25]")
