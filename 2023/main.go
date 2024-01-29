@@ -20,14 +20,17 @@ func main() {
     }
     
     p2 := true
-    f1 := "aoc_d" + string(day[1]) + "_p1.py"
-    f2 := "aoc_d" + string(day[1]) + "_p2.py"
+    f1 := "aoc_d" + string(day[1])
+    f2 := "aoc_d" + string(day[1])
     switch day {
         case "01":
-            f1 = "aoc_d1_q1.py"
-            f2 = "aoc_d1_q2.py"
+            f1 += "_q1.py"
+            f2 += "_q2.py"
         case "02", "03", "04":
+            f1 += "_p1.py"
+            f2 += "_p2.py"
         case "05":
+            f1 += "_p1.py"
             f2 = "d5_p2.py"
         case "06", "08", "10":
             f1 = "p1.py"
@@ -35,14 +38,17 @@ func main() {
         case "09":
             f1 = "p1_p2.py"
             p2 = false
+        case "07":
+            day7_p1()
+            f1 = "p2.py"
+            p2 = false
         case "11":
             D11() 
             return
-        case "07":
-            // fix later
-            //day7_p1() 
-            f1 = "p2.py"
-        case "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25":
+        case "12":
+            d12()
+            return
+        case "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25":
             fmt.Println("Day " + day + " solution is not yet implemented")
             return
         default:
