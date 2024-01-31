@@ -37,7 +37,6 @@ func calculateP2(steps []string) int {
         } else {
             label := l[:len(l) - 2]
             index := getHash(label)
-            fmt.Println(l)
             flen, _ := strconv.Atoi(string(l[len(l) - 1]))
 
             box := false
@@ -55,10 +54,8 @@ func calculateP2(steps []string) int {
     }
 
     for index, items := range boxes {
-        fmt.Println("box", index)
         for l := 0; l < len(items); l++ {
             total += (index + 1) * (l + 1) * (items[l].flen)
-            fmt.Println("Item: \t", items[l])
         }
     }
 
