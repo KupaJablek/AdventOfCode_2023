@@ -48,7 +48,10 @@ func main() {
         case "12":
             d12()
             return
-        case "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25":
+        case "15":
+            d15()
+            return
+        case "13", "14", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25":
             fmt.Println("Day " + day + " solution is not yet implemented")
             return
         default:
