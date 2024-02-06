@@ -20,19 +20,10 @@ func main() {
     }
     
     p2 := true
-    f1 := "aoc_d" + string(day[1])
-    f2 := "aoc_d" + string(day[1])
+    var f1 string 
+    var f2 string 
     switch day {
-        case "01":
-            f1 += "_q1.py"
-            f2 += "_q2.py"
-        case "02", "03", "04":
-            f1 += "_p1.py"
-            f2 += "_p2.py"
-        case "05":
-            f1 += "_p1.py"
-            f2 = "d5_p2.py"
-        case "06", "08", "10":
+        case "01", "02", "03", "04", "05", "06", "08", "10":
             f1 = "p1.py"
             f2 = "p2.py"
         case "09":
@@ -46,12 +37,16 @@ func main() {
             D11() 
             return
         case "12":
+            fmt.Println("NOT FINISHED YET")
             d12()
             return
         case "15":
             d15()
             return
-        case "13", "14", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25":
+        case "16":
+            d16()
+            return
+        case "13", "14", "17", "18", "19", "20", "21", "22", "23", "24", "25":
             fmt.Println("Day " + day + " solution is not yet implemented")
             return
         default:
@@ -59,7 +54,6 @@ func main() {
             return
         }
 
-    fmt.Println("Day #", day)
     cmd := exec.Command("python3", "./" + day + "/" + f1, "./" + day + "/input.txt")
     cmd2 := exec.Command("python3", "./" + day + "/" + f2, "./" + day + "/input.txt")
 
