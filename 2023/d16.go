@@ -22,8 +22,8 @@ type work struct {
     direction int 
 }
 
+var seen []loc
 var maze []string
-var count int
 var splits []loc
 
 func validIdx(l loc) bool {
@@ -37,32 +37,29 @@ func validIdx(l loc) bool {
 }
 
 func increment(w work) work {
-    // step another space forward
     switch w.direction {
     case Up:
-        //fmt.Println("going up")
         w.l.y--
     case Down:
-        //fmt.Println("going down")
         w.l.y++
     case Right:
-        //fmt.Println("going right")
         w.l.x++
     case Left:
-        //fmt.Println("going left")
         w.l.x--
     }
     return w
 }
 
-func walk(w work) []work {
+func walk(w work) ([]work, int) {
     out := []work{}
+    count := 0
 
     for validIdx(w.l) {
-        count++
-        // check for direction change
+        if !slices.Contains(seen, w.l) {
+            count++
+            seen = append(seen, w.l)
+        }
         c := string(maze[w.l.y][w.l.x])
-        //fmt.Println(c)
         switch c {
         case "\\":
             switch w.direction {
@@ -90,7 +87,7 @@ func walk(w work) []work {
             switch w.direction {
             case Left, Right:
                 if slices.Contains(splits, w.l) {
-                    return []work{}
+                    return []work{}, count
                 }
                 splits = append(splits, w.l)
 
@@ -100,14 +97,14 @@ func walk(w work) []work {
                 n2 = increment(n2)
 
                 out = append(out, n1, n2)
-                return out
+                return out, count
             default: // nothing
             }
         case "-":
             switch w.direction {
             case Up, Down:
                 if slices.Contains(splits, w.l) {
-                    return []work{}
+                    return []work{}, count
                 }
                 splits = append(splits, w.l)
 
@@ -117,42 +114,76 @@ func walk(w work) []work {
                 n2 = increment(n2)
 
                 out = append(out, n1, n2)
-                return out
+                return out, count
             default: // nothing
             }
         default: // "." -> do nothing 
         }
         w = increment(w)
     }
-    return out
+    return out, count
 }
 
-func d16() {
-    //data, err := ParseFile("./16/input.txt")
-    data, err := ParseFile("./16/test.txt")
-    if err != nil {
-        fmt.Println(err.Error())   
-        return
-    }
+func p1(l loc, d int) int {
+    total := 0
 
-    maze = data
-    for i := range data {
-        fmt.Println(maze[i])
-    }
-
-    tasks := []work{work{loc{0,0}, Right}}
-
+    tasks := []work{work{l, d}}
     for len(tasks) > 0 {
         t := tasks[0]
         tasks = tasks[1:]
-        r := walk(t)
+        r, c := walk(t)
+        total += c
         if len(r) > 0 {
-            //fmt.Println(r)
             for i := range r {
                 tasks = append(tasks, r[i])
             }
         }
     }
+    return total
+}
 
-    fmt.Println("Part #1:", count)
+func clearGlobals() {
+    seen = []loc{}
+    splits = []loc{}
+}
+
+func p2() int {
+    tot := 0
+    for i := 0; i < len(maze); i++ {
+        c := p1(loc{0, i}, Right)
+        if c > tot { tot = c}
+        clearGlobals()
+    }
+    for i := 0; i < len(maze); i++ {
+        c := p1(loc{len(maze) - 1, i}, Left)
+        if c > tot { tot = c}
+        clearGlobals()
+    }
+    for i := range maze[0] {
+        c := p1(loc{i, len(maze[0]) - 1}, Up)
+        if c > tot { tot = c}
+        clearGlobals()
+    }
+    for i := 0; i < len(maze[0]); i++ {
+        c := p1(loc{i, 0}, Down)
+        if c > tot { tot = c}
+        clearGlobals()
+    }
+    return tot
+}
+
+func d16() {
+    data, err := ParseFile("./16/input.txt")
+    if err != nil {
+        fmt.Println(err.Error())   
+        return
+    }
+    maze = data
+
+    ret := p1(loc{0,0}, Right)
+    fmt.Println("Part #1:", ret)
+    clearGlobals()
+
+    // P2
+    fmt.Println("Part #2:", p2())
 }
