@@ -1,10 +1,10 @@
 package main
 
 import (
-	"bytes"
-	"fmt"
-	"os"
-	"os/exec"
+    "bytes"
+    "fmt"
+    "os"
+    "os/exec"
 )
 
 func main() {
@@ -18,48 +18,39 @@ func main() {
     if len(day) == 1 {
         day = "0" + day
     }
-    
-    p2 := true
+
     var f1 string 
     var f2 string 
     switch day {
-        case "01", "02", "03", "04", "05", "06", "08", "10":
-            f1 = "p1.py"
-            f2 = "p2.py"
-        case "09":
-            f1 = "p1_p2.py"
-            p2 = false
-        case "07":
-            day7_p1()
-            f1 = "p2.py"
-            p2 = false
-        case "11":
-            D11() 
-            return
-        case "12":
-            fmt.Println("NOT FINISHED YET")
-            d12()
-            return
-        case "15":
-            d15()
-            return
-        case "16":
-            d16()
-            return
-        case "17":
-            fmt.Println("NOT FINISHED YET")
-            d17()
-            return
-        case "18":
-            d18()
-            return
-        case "13", "14",  "19", "20", "21", "22", "23", "24", "25":
-            fmt.Println("Day " + day + " solution is not yet implemented")
-            return
-        default:
-            fmt.Println("Day: " + day + " is not valid day [1-25]")
-            return
-        }
+    case "01", "02", "03", "04", "05", "06", "08", "10":
+        f1 = "p1.py"
+        f2 = "p2.py"
+    case "09":
+        f1 = "p1_p2.py"
+    case "07":
+        day7_p1()
+        f1 = "p2.py"
+    case "11":
+        D11() 
+    case "12":
+        d12()
+    case "15":
+        d15()
+    case "16":
+        d16()
+    case "17":
+        d17()
+    case "18":
+        d18()
+    case "13", "14",  "19", "20", "21", "22", "23", "24", "25":
+        fmt.Println("Day " + day + " solution is not yet implemented")
+    default:
+        fmt.Println("Day: " + day + " is not valid day [1-25]")
+    }
+
+    if f1 == "" {
+        return
+    }
 
     cmd := exec.Command("python3", "./" + day + "/" + f1, "./" + day + "/input.txt")
     cmd2 := exec.Command("python3", "./" + day + "/" + f2, "./" + day + "/input.txt")
@@ -69,7 +60,7 @@ func main() {
     cmd.Run()
     fmt.Println(string(out.Bytes()))
 
-    if p2 {
+    if f2 != "" {
         fmt.Println("Part 2")
         out2 := &bytes.Buffer{}
         cmd2.Stdout = out2
