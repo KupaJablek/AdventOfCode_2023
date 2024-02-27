@@ -31,8 +31,12 @@ func main() {
         d4()
     case "06":
         d6()
-    case "07", "08", "09", "10":
-    case "11", "12", "13", "14", "15", "16", "17", "18", "19", "20":
+    case "07", "08", "09":
+    case "10":
+        d10()
+    case "11", "13", "14", "15", "16", "17", "18", "19", "20":
+    case "12":
+        d12()
     case "21", "22", "23", "24", "25":
     default:
         fmt.Println("Day: " + day + " is not valid day [1-25]")
@@ -46,7 +50,6 @@ func ParseFile(p string) ([]string, error) {
     }
 
     var data []string
-
     scanner := bufio.NewScanner(file)
     for scanner.Scan() {
        data = append(data, scanner.Text()) 
