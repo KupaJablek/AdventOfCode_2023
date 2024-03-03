@@ -42,7 +42,9 @@ func main() {
         d17()
     case "18":
         d18()
-    case "13", "14",  "19", "20", "21", "22", "23", "24", "25":
+    case "14":
+        d14()
+    case "13", "19", "20", "21", "22", "23", "24", "25":
         fmt.Println("Day " + day + " solution is not yet implemented")
     default:
         fmt.Println("Day: " + day + " is not valid day [1-25]")
