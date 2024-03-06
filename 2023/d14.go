@@ -25,53 +25,88 @@ func d14siftRocks(m [][]string) [][]string {
     return m
 }
 
-func d14rotate(m [][]string) [][]string {
-    rotated := make([][]string, len(m))
-    for i := range rotated {
-        rotated[i] = make([]string, len(m[i]))
-    }
-
-    for i := range m {
-        idx := len(m) - 1 - i
-        for k := range m[i] {
-            rotated[k][idx] = m[i][k]
+func rotateArr(m [][]string) [][]string {
+    // transpose
+    for i := range m{
+        for k := i; k < len(m[0]); k++ {
+            m[i][k], m[k][i] = m[k][i], m[i][k]
         }
     }
-    return rotated
+
+    // reverse each row
+    for i := range m{
+        j, k := 0, len(m[0]) - 1
+        for j < len(m[0]) / 2 {
+            m[i][j], m[i][k - j] = m[i][k - j], m[i][j]
+            j++
+        }
+    }
+    return m
 }
 
-func d14p2(m [][]string, cycles int) int {
-    seen := [][][]string{}
-    seen = append(seen, m)
-    found := -1
+var tm [][]string
+func cycle() {
+    for x := 0; x < 4; x++ {
+        tm = d14siftRocks(tm)
+        tm = rotateArr(tm)
+    }
+}
 
-    tm := m
+func d14p2(cycles int) int {
+    seen := make([][][]string, 150)
+    
+    seen[0] = make([][]string, len(tm))
+    for i := range tm {
+        seen[0][i] = tm[i]
+    }
+
+    found := -1
     var c int
     for c = 1; c <= cycles; c++ {
-        for x := 0; x < 4; x++ {
-            tm = d14siftRocks(tm)
-            tm = d14rotate(tm)
+        fmt.Println()
+        for j := range tm {
+            fmt.Println(tm[j])
         }
-        
+        fmt.Println()
+        for j := range tm {
+            fmt.Println(seen[0][j])
+        }
+        cycle()
+        fmt.Println()
+        for k := range tm {
+            fmt.Println(seen[0][k])
+        }
         for i := range seen {
-            if reflect.DeepEqual(seen[i], tm) {
-                fmt.Println("FOUND IT")
+            if reflect.DeepEqual(tm, seen[i]) {
+                found = i
+                fmt.Println("THATS THE ONE RIGHT THERE")
                 fmt.Println("\t", i)
+
                 break
             }
         }
-
         if found != -1 {
             break
         }
-        seen = append(seen, tm)
+        seen[c] = make([][]string, len(tm))
+        for i := range tm {
+            seen[c][i] = tm[i]
+        }
     }
+
+    fmt.Println("Length of seen:", len(seen))
+
     first := 0
+    /*
+    if reflect.DeepEqual(seen[117], seen[103]) {
+        fmt.Println("I THGINK ITS WORKING")
+        fmt.Println(seen[117])
+    }
+    */
     for i := range seen {
-        if reflect.DeepEqual(seen[i], tm) {
+        if reflect.DeepEqual(tm, seen[i]) {
             first = i
-            fmt.Println("FOUND IT")
-            fmt.Println("\t", i)
+            fmt.Println("found at:", i)
             break
         }
     }
@@ -90,7 +125,7 @@ func d14p2(m [][]string, cycles int) int {
 }
 
 func d14() {
-    d, err := ParseFile("14/intput.txt")
+    d, err := ParseFile("14/test.txt")
     if err != nil {
         fmt.Println(err.Error())
         return
@@ -103,8 +138,9 @@ func d14() {
         }
     }
     //cycles := 1000000000
-    cycles := 3 
-    p2 := d14p2(m, cycles)
+    //cycles := 125 
+    tm = m
+    p2 := d14p2(10)
     m = d14siftRocks(m)
 
     tot := 0
