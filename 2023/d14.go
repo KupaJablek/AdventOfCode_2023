@@ -44,44 +44,28 @@ func rotateArr(m [][]string) [][]string {
     return m
 }
 
-var tm [][]string
-func cycle() {
-    for x := 0; x < 4; x++ {
-        tm = d14siftRocks(tm)
-        tm = rotateArr(tm)
-    }
-}
-
-func d14p2(cycles int) int {
+func d14p2(tm [][]string, cycles int) int {
     seen := make([][][]string, 150)
-    
     seen[0] = make([][]string, len(tm))
     for i := range tm {
-        seen[0][i] = tm[i]
+        temp := make([]string, len(tm[i]))
+        for k := range tm[i] {
+            temp[k] = tm[i][k]
+        }
+        seen[0][i] = temp
     }
 
-    found := -1
     var c int
-    for c = 1; c <= cycles; c++ {
-        fmt.Println()
-        for j := range tm {
-            fmt.Println(tm[j])
+    for {
+        c++
+        found := -1
+        for x := 0; x < 4; x++ {
+            tm = d14siftRocks(tm)
+            tm = rotateArr(tm)
         }
-        fmt.Println()
-        for j := range tm {
-            fmt.Println(seen[0][j])
-        }
-        cycle()
-        fmt.Println()
-        for k := range tm {
-            fmt.Println(seen[0][k])
-        }
-        for i := range seen {
+        for i := 0; i < c; i++ {
             if reflect.DeepEqual(tm, seen[i]) {
                 found = i
-                fmt.Println("THATS THE ONE RIGHT THERE")
-                fmt.Println("\t", i)
-
                 break
             }
         }
@@ -90,30 +74,28 @@ func d14p2(cycles int) int {
         }
         seen[c] = make([][]string, len(tm))
         for i := range tm {
-            seen[c][i] = tm[i]
+            temp := make([]string, len(tm[i]))
+            for k := range tm[i] {
+                temp[k] = tm[i][k]
+            }
+            seen[c][i] = temp
         }
     }
 
-    fmt.Println("Length of seen:", len(seen))
-
-    first := 0
-    /*
-    if reflect.DeepEqual(seen[117], seen[103]) {
-        fmt.Println("I THGINK ITS WORKING")
-        fmt.Println(seen[117])
-    }
-    */
+    var first int
     for i := range seen {
         if reflect.DeepEqual(tm, seen[i]) {
             first = i
-            fmt.Println("found at:", i)
             break
         }
     }
 
     grid := seen[(cycles - first) % (c - first) + first]
+    return d14Tot(grid)
+}
 
-    tot := 0
+func d14Tot(grid [][]string) int {
+    var tot int
     for i := range grid {
         for k := range grid[i] {
             if grid[i][k] == "O" {
@@ -125,11 +107,12 @@ func d14p2(cycles int) int {
 }
 
 func d14() {
-    d, err := ParseFile("14/test.txt")
+    d, err := ParseFile("14/input.txt")
     if err != nil {
         fmt.Println(err.Error())
         return
     }
+
     m := make([][]string, len(d))
     for i := range d {
         m[i] = make([]string, len(d[i]))
@@ -137,20 +120,9 @@ func d14() {
             m[i][k] = string(val)
         }
     }
-    //cycles := 1000000000
-    //cycles := 125 
-    tm = m
-    p2 := d14p2(10)
-    m = d14siftRocks(m)
 
-    tot := 0
-    for i := range m {
-        for k := range m[i] {
-            if m[i][k] == "O" {
-                tot += len(m) - i
-            }
-        }
-    }
-    fmt.Println("Part 1:", tot)
+    p2 := d14p2(m, 1000000000)
+    m = d14siftRocks(m)
+    fmt.Println("Part 1:", d14Tot(m))
     fmt.Println("Part 2:", p2)
 }
