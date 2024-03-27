@@ -2,9 +2,11 @@ package main
 
 import (
 	"bufio"
+	"bytes"
 	"errors"
 	"fmt"
 	"os"
+	"os/exec"
 )
 
 func main() {
@@ -38,7 +40,16 @@ func main() {
         d10()
     case "11":
         d11()
-    case "13", "16", "17", "18", "19", "20":
+    case "17":
+        //d17()
+        cmd := exec.Command("python3", "./d17.py")
+        out := &bytes.Buffer{}
+        cmd.Stdout = out
+        cmd.Run()
+
+        fmt.Print(string(out.Bytes()))
+
+    case "13", "16", "18", "19", "20":
     case "14":
         d14()
     case "15":
