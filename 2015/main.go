@@ -48,8 +48,9 @@ func main() {
         cmd.Run()
 
         fmt.Print(string(out.Bytes()))
-
-    case "13", "16", "18", "19", "20":
+    case "13", "16", "18", "19":
+    case "20":
+        d20()
     case "14":
         d14()
     case "15":
