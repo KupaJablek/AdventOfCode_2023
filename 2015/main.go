@@ -57,7 +57,9 @@ func main() {
         d15()
     case "12":
         d12()
-    case "21", "22", "23", "24", "25":
+    case "21":
+        d21()
+    case "22", "23", "24", "25":
     default:
         fmt.Println("Day: " + day + " is not valid day [1-25]")
     }
