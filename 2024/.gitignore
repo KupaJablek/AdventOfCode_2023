@@ -1,0 +1,8 @@
+# don't track the test files
+inputs/
+
+# ignore the binary files created by the program
+*.bin
+
+# ignore any object files floating around
+*.o
