@@ -1,11 +1,6 @@
 #include "days.h"
 #define min_numbers 5
 
-char* get_path(int day) { char *path = malloc(sizeof (char) * 20);
-
-    sprintf(path, "./inputs/d%d.txt", day);
-    return path;
-}
 int num_numbers = 5;
 int *list1;
 int *list2;

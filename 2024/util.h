@@ -4,6 +4,4 @@
 #include <stdlib.h>
 #include <sys/types.h>
 
-#include "d4.h"
-
-void d1();
+char* get_path(int day);

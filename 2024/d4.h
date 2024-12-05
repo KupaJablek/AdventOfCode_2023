@@ -4,6 +4,8 @@
 #include <stdlib.h>
 #include <sys/types.h>
 
-#include "d4.h"
+#include "stdbool.h"
 
-void d1();
+#include "util.h"
+
+void d4();
