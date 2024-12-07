@@ -24,6 +24,10 @@ int main(int argc, char *argv[]) {
         d4();
         break;
 
+    case 6:
+        d6();
+        break;
+
     default:
         printf("Day %d has not been implemented yet\n", day); 
         break;

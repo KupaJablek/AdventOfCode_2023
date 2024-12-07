@@ -5,5 +5,6 @@
 #include <sys/types.h>
 
 #include "d4.h"
+#include "d6.h"
 
 void d1();
